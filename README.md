@@ -7,7 +7,7 @@ In this exercise, you are going to practice using routes alongside `fetch` reque
 1. Fork this repository
 2. Clone the forked repository onto your local machines
 3. In the root directory, type `npm install`, which installs dependencies for the project
-4. Run `json-server` - `npx json-server --watch db/db.json --routes db/routes.json --port 3030`(or just `json-server --watch db/db.json --routes db/routes.json --port 3030`, if you already have `json-server` installed)
+4. Run `json-server` - `json-server --watch db/db.json --routes db/routes.json --port 3030``npx json-server --watch db/db.json --routes db/routes.json --port 3030`(or just , if you already have `json-server` installed)
 5. Finally, type `npm run start`, which starts a development server that runs your website in the browser. That server will reload your website whenever you make any changes to source files
 
 ## Instructions

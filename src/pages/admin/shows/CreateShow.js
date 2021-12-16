@@ -2,50 +2,50 @@ import { useState } from "react"
 import { useNavigate } from "react-router"
 
 
-function CreateTourPage(props) {
-  const { tours, setTours } = props
+function CreateShowsPage(props) {
+  const { shows, setShows } = props
 
   let navigate = useNavigate()
 
-  const [tourToCreate, setTourToCreate] = useState({
+  const [showToCreate, setShowToCreate] = useState({
     name: "",
     price: 0,
   })
 
-  const [addressOfTour, setAddressOfTour] = useState({
+  const [addressOfShow, setAddressOfShow] = useState({
     address: ""
   })
 
-  console.log({ tourToCreate })
-  console.log(tours)
+  console.log({ showToCreate })
+  console.log(shows)
 
   function handleSubmit(event) {
     event.preventDefault()
-    setTours([...tours, tourToCreate])
-    postNewTour(tourToCreate, addressOfTour)
+    setShows([...shows, showToCreate])
+    postNewShow(showToCreate, addressOfShow)
     // Redirect to "/" with navigate and navigate
     navigate("/", { replace: true });
   }
 
-  const postNewTour = async (tourToCreate, addressOfTour)  => {
+  const postNewShow = async (showToCreate, addressOfShow)  => {
     try {
-        const tourResponse = await fetch("http://localhost:3030/tours", {
+        const tourResponse = await fetch("http://localhost:3030/shows", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(tourToCreate),
+            body: JSON.stringify(showToCreate),
         });
-        const tourData = await tourResponse.json();
-        console.log("data posted", tourData);
-        let jsonId = `tour+${tourData.id}`
-        Object.assign(addressOfTour, {name: tourData.name}, {uuid:jsonId})
+        const showData = await tourResponse.json();
+        console.log("data posted", showData);
+        let jsonId = `show+${showData.id}`
+        Object.assign(addressOfShow, {name: showData.name}, {id: jsonId})
         const addressResponse = await fetch("http://localhost:3030/address", {
           method: "POST",
           headers: {
               "Content-Type": "application/json",
           },
-          body: JSON.stringify(addressOfTour),
+          body: JSON.stringify(addressOfShow),
       });
       const addressData = await addressResponse.json();
       console.log("data posted", addressData);
@@ -58,26 +58,26 @@ function CreateTourPage(props) {
     const name = event.target.name
     const value = event.target.value
 
-    setTourToCreate({ ...tourToCreate, [name]: value })
+    setShowToCreate({ ...showToCreate, [name]: value })
   }
 
   function handleChangeAddress(event) {
     const name = event.target.name
     const value = event.target.value
 
-    setAddressOfTour({[name]: value })
+    setAddressOfShow({[name]: value })
   }
 
   return (
     <form className="form-stack" onSubmit={handleSubmit}>
-      <h2>Create a Tour</h2>
+      <h2>Create a Show</h2>
       <label htmlFor="name">Name</label>
       <input
         type="text"
         id="name"
         name="name"
         onChange={handleChangeTour}
-        value={tourToCreate.name}
+        value={showToCreate.name}
       />
       <label htmlFor="price">price</label>
       <input
@@ -85,7 +85,7 @@ function CreateTourPage(props) {
         id="price"
         name="price"
         onChange={handleChangeTour}
-        value={tourToCreate.price}
+        value={showToCreate.price}
       />
       <label htmlFor="address">address</label>
       <input
@@ -93,11 +93,11 @@ function CreateTourPage(props) {
         id="address"
         name="address"
         onChange={handleChangeAddress}
-        value={addressOfTour.address}
+        value={addressOfShow.address}
       />
-      <button type="submit">Create Tour</button>
+      <button type="submit">Create Show</button>
     </form>
   )
 }
 
-export default CreateTourPage
+export default CreateShowsPage
